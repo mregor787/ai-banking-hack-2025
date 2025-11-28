@@ -33,3 +33,17 @@ def consume_ai_responses(callback):
 
     print("[MAIN] Waiting for AI responses...")
     channel.start_consuming()
+
+def consume_external_emails(callback):
+    connection = get_connection()
+    channel = connection.channel()
+    channel.queue_declare(queue="external_emails", durable=True)
+
+    channel.basic_consume(
+        queue="external_emails",
+        on_message_callback=callback,
+        auto_ack=True
+    )
+
+    print("[MAIN] Waiting for external emails...")
+    channel.start_consuming()

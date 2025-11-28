@@ -41,8 +41,22 @@ def ai_response_callback(ch, method, properties, body):
 
     db_client.save_answer(mail_id, answer_text, is_important, is_urgently)
 
+def external_email_callback(ch, method, properties, body):
+    data = json.loads(body)
+    mail_text = data["mailText"]
+    customer_id = data["customerId"]
+
+    print("[MAIN] Received external email.")
+
+    mail = db_client.save_mail(customer_id, mail_text)
+
+    mq.publish_ai_request(mail["uuid"], mail_text)
+
 def start_consumer():
     mq.consume_ai_responses(ai_response_callback)
 
+def start_external_consumer():
+    mq.consume_external_emails(external_email_callback)
 
 Thread(target=start_consumer, daemon=True).start()
+Thread(target=start_external_consumer, daemon=True).start()
