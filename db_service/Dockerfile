@@ -1,14 +1,10 @@
 FROM python:3.10
 
-RUN apt-get update && apt-get install -y netcat-openbsd
-
 WORKDIR /app
 
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY db_service /app
-COPY wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
 
-CMD ["/wait-for-it.sh", "db", "5432", "--", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8001"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8001"]
