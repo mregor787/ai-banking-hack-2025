@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from database import SessionLocal, init_db
 import crud
-from schemas import MailCreate, AnswerCreate
+from schemas import MailCreate, AnswerCreate, CustomerCreate, Customer
 
 init_db()
 
@@ -29,3 +29,11 @@ def create_mail(customer_id: str, mail: MailCreate, db=Depends(get_db)):
 @app.post("/api/mails/{mail_id}/answer")
 def create_answer(mail_id: str, answer: AnswerCreate, db=Depends(get_db)):
     return crud.create_answer(db, mail_id, answer)
+
+@app.get("/api/customers", response_model=list[Customer])
+def get_customers(db=Depends(get_db)):
+    return crud.get_customers(db)
+
+@app.post("/api/customers")
+def create_customer(customer: CustomerCreate, db=Depends(get_db)):
+    return crud.create_customer(db, customer)

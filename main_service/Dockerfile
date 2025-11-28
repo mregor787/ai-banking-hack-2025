@@ -7,8 +7,8 @@ WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
-COPY db_service /app
+COPY main_service /app
 COPY wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
 
-CMD ["/wait-for-it.sh", "db", "5432", "--", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8001"]
+CMD ["/wait-for-it.sh", "mq", "5672", "--", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

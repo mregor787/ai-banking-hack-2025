@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from models import Mail, Answer
-from schemas import MailCreate, AnswerCreate
+from models import Mail, Answer, Customer
+from schemas import MailCreate, AnswerCreate, CustomerCreate
 
 
 def get_all_mails(db: Session):
@@ -30,3 +30,16 @@ def create_answer(db: Session, mail_id, answer_data: AnswerCreate):
     db.commit()
     db.refresh(answer)
     return answer
+
+def get_customers(db: Session):
+    return db.query(Customer).all()
+
+def create_customer(db: Session, customer_data: CustomerCreate):
+    customer = Customer(
+        name=customer_data.name,
+        personType=customer_data.personType
+    )
+    db.add(customer)
+    db.commit()
+    db.refresh(customer)
+    return customer
