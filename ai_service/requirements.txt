@@ -1,0 +1,10 @@
+aio-pika==9.4.1
+pydantic==2.5.0
+pytest==7.4.3
+pytest-asyncio==0.21.1
+gigachat==0.1.11
+python-dotenv==1.0.0
+asyncio-mqtt==0.13.0
+ujson==5.8.0
+python-multipart==0.0.6
+httpx==0.25.2
