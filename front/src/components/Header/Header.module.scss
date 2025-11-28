@@ -1,0 +1,36 @@
+.header {
+    width: 100%;
+    height: 100%;
+
+    background: no-repeat center;
+    background-size: cover;
+    background-color: #3e3e59;
+    background-image: linear-gradient(100.45deg, #322355 -11.8%, #452d5a 22.14%, #73404f 58.58%, #cf885b 101.27%);
+
+    position: relative;
+
+    z-index: 100;
+}
+
+.headerContainer {
+    height: 100px;
+
+    margin: 0 auto;
+    padding: 0 150px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 70px;
+}
+
+.title {
+    color: white;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 120%;
+    // color: inherit;
+    letter-spacing: 0;
+}
